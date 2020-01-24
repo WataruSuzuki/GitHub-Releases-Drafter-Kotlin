@@ -1,1 +1,0 @@
-kotlinc GitHubReleasesDrafter.kt -include-runtime -d GitHubReleasesDrafter.jar

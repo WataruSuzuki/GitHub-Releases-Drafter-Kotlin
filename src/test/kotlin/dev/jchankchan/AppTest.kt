@@ -4,11 +4,19 @@
 package dev.jchankchan
 
 import kotlin.test.Test
-import kotlin.test.assertNotNull
+import kotlin.test.assertEquals
 
 class AppTest {
-    @Test fun testAppHasAGreeting() {
-        val classUnderTest = App()
-        assertNotNull(classUnderTest.greeting, "app should have a greeting")
+    @Test fun testNoArgument() {
+        val app = App()
+        app.main(listOf<String>())
+        assertEquals(app.version.isEmpty(), true)
+        assertEquals(app.path.isEmpty(), true)
+        assertEquals(app.assetname.isEmpty(), true)
+        assertEquals(app.draft, true)
+        assertEquals(app.prerelease, false)
+        assertEquals(app.token.isEmpty(), true)
+
+        assertEquals(app.isReady, false)
     }
 }
