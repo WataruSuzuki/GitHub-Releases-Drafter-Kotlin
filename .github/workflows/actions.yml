@@ -19,3 +19,18 @@ jobs:
 
     - name: Build with Gradle
       run: ./gradlew build
+
+    - name: Run integration tests
+      run: ./run_distribution.sh "nightly"
+      env:
+        PUBLISH_TOKEN: ${{ secrets.UPLOAD_TOKEN }}
+
+    - name: Upload stable binary
+      run: |
+        VERSION=`echo ${GITHUB_REF//refs\/tags\//}`
+        ./run_distribution.sh $VERSION
+        sleep 5
+        ./publish_draft.sh $VERSION
+      env:
+        PUBLISH_TOKEN: ${{ secrets.UPLOAD_TOKEN }}
+      if: contains(github.ref, 'tags/v')
